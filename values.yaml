@@ -6,3 +6,5 @@ IMAGE: php:8.1-apache
 CONTAINER_PORT: 80
 APP_ENV: production
 PVC_NAME: php-web-pvc
+SERVICE_NAME: "my-app-service"
+PVC_STORAGE: "1Gi"

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${DEPLOYMENT_NAME} # Nama deployment dari variabel
+  labels:
+    app: ${APP_LABEL}       # Label aplikasi dari variabel
+spec:
+  replicas: ${REPLICA_COUNT} # Jumlah replika dari variabel
+  selector:
+    matchLabels:
+      app: ${APP_LABEL}
+  template:
+    metadata:
+      labels:
+        app: ${APP_LABEL}
+    spec:
+      containers:
+        - name: ${CONTAINER_NAME} # Nama container dari variabel
+          image: ${IMAGE}         # Image PHP dari variabel
+          ports:
+            - containerPort: ${CONTAINER_PORT} # Port yang digunakan aplikasi PHP
+          env:
+            - name: APP_ENV
+              value: "${APP_ENV}" # Variabel environment untuk konfigurasi aplikasi PHP
+          volumeMounts:
+            - name: php-source-code
+              mountPath: /var/www/html # Direktori mount source code PHP
+      volumes:
+        - name: php-source-code
+          persistentVolumeClaim:
+            claimName: ${PVC_NAME} # Nama PVC dari variabel
